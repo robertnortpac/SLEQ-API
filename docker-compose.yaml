@@ -1,0 +1,41 @@
+version: "3.8"
+services:
+
+  # The instance for the python backend
+  python:
+    image: python:3.11.3
+    hostname: py-hostname
+    working_dir: /usr/src/app/src
+    depends_on:
+      - mysqldb
+    ports:
+      - 80:80
+    volumes:
+      - ./:/usr/src/app
+    command: sh ../docker/start.sh
+
+  # mysql 8.0.33
+  mysqldb:
+    image: mysql:8.0.33
+    hostname: mysql-hostname
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - 3306:3306
+    expose:
+      - 3306:3306
+    volumes:
+      - ./mysql/INITIAL.sql:/docker-entrypoint-initdb.d/INITIAL.sql
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    depends_on:
+      - mysqldb
+    ports:
+      - 8080:80
+    environment:
+      - PMA_HOST=mysql-hostname
+      - MYSQL_ROOT_PASSWORD=root
+networks:
+  default:
+    name: tpac-network
