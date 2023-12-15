@@ -1,6 +1,7 @@
 i:
 	pip freeze | xargs pip uninstall -y;
 	pip install -r requirements.txt;
+	pip freeze > requirements-freeze.txt;
 up:
 	docker-compose up -d; docker-compose logs -f python;
 down:

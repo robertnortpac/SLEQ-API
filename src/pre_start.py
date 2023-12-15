@@ -3,7 +3,7 @@ import logging
 from tenacity import after_log, before_log, retry, stop_after_attempt, wait_fixed
 from sqlalchemy import text
 
-from db.session import db_session
+from app.db.session import db_session
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
