@@ -47,6 +47,30 @@ class Rfp(Base):
 
     company_id = Column(String(36), ForeignKey("company.id"))
 
+    def get_status(self) -> str:
+        if self.is_active:
+            return "Active"
+        elif self.is_assigned:
+            return "Assigned to Underwriter"
+        elif self.is_declined:
+            return "Declined to Quote"
+        elif self.is_expired:
+            return "Expired"
+        elif self.is_on_hold:
+            return "On Hold"
+        elif self.is_submitted:
+            return "Submitted"
+        elif self.is_withdrawn:
+            return "Withdrawn"
+        elif self.is_rejected:
+            return "Rejected"
+        elif self.is_quoted:
+            return "Quoted"
+        elif self.is_completed:
+            return "Completed"
+        else:
+            return "Unknown"
+
 
 
 
